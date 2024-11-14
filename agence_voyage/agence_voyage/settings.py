@@ -70,8 +70,8 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': '892266487218-roscc1bk49i602n9h84l8ti86fmleh1j.apps.googleusercontent.com',
-            'secret': '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',
+            'client_id': 'YOUR_GOOGLE_CLIENT_ID',
+            'secret': 'SECRET_KEY',
             'key': ''
         },
         'SCOPE': [
@@ -177,6 +177,3 @@ STATIC_ROOT = BASE_DIR / "staticfiles"  # Django les collecte ici pour la produc
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '892266487218-roscc1bk49i602n9h84l8ti86fmleh1j.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
