@@ -1,0 +1,40 @@
+{% load static %}
+{% load socialaccount %}
+{% load i18n %}
+{% load account %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion</title>
+    <link rel='stylesheet' href="{% static 'css/styles.css' %}">
+</head>
+<body>
+<nav>
+    <div class="navbar">
+        <ul>
+            <li><a href="{% url 'account_signup' %}">Inscription</a></li>
+        </ul>
+    </div>
+</nav>
+<h1>Bienvenue sur CheapyTrips</h1>
+<div class="login-container">
+    <h1>Connexion</h1>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Connexion</button>
+    </form>
+    <a href="{% provider_login_url 'google' %}">
+        <button type="button">Se connecter avec Google</button>
+    </a>
+</div>
+
+<footer>
+    <p>&copy; 2024 CheapyTrips - Tous droits réservés.</p>
+    <p><a href="#"Politique de confidentialité | <a href="#">Conditions d'utilisation</a></p>
+</div>
+</footer>
+</body>
+</html>

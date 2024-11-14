@@ -1,0 +1,97 @@
+<!-- offres/details_offre.html -->
+{% load static %}
+
+<!-- offre_detail.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Détails de l'offre - {{ offre.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'offres' %}">Offres</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>{{ offre.title }}</h1>
+
+    <div class="offre-detail">
+        <div class="offre-images">
+            <h2>Images de l'offre</h2>
+            <img src="{{ offre.image.url }}" alt="{{ offre.title }}" style="width: 100%; height: auto;">
+            {% for image in offre.images.all %}
+                <img src="{{ image.url }}" alt="Image supplémentaire" style="width: 100%; height: auto;">
+            {% endfor %}
+        </div>
+
+        <div class="offre-info">
+            <p><strong>Lieu :</strong> {{ offre.destination_pays }}, {{ offre.destination_ville }}</p>
+            <p><strong>Nom de l'établissement :</strong> {{ offre.etablissement}}</p>
+            <p><strong>Nombre d'étoiles :</strong> {{ offre.nb_etoiles }}</p>
+
+            <h3>Évaluation : {{ offre.note }} / 10</h3>
+            <p><strong>Commentaires :</strong></p>
+            <ul>
+                {% for comment in offre.comments.all %}
+                    <li>{{ comment.text }} - <strong>{{ comment.user }}</strong></li>
+                {% endfor %}
+            </ul>
+
+            <p><strong>Prix minimal sans vol :</strong> {{ offre.min_price }} €</p>
+            <p><strong>Prix minimal avec vol :</strong> {{ offre.min_price_w_flight }} €</p>
+
+            <h3>Durées disponibles</h3>
+            <ul>
+                {% for duree in offre.durees_disponibles %}
+                    <li>{{ duree }}</li>
+                {% endfor %}
+            </ul>
+
+            <h3>Descriptif de l'offre</h3>
+            <p>{{ offre.description }}</p>
+
+            <h3>Détails de l'offre</h3>
+            <ul>
+                <li><strong>Heure d'arrivée :</strong> {{ offre.check_in_time }}</li>
+                <li><strong>Heure de départ :</strong> {{ offre.check_out_time }}</li>
+                <li><strong>Équipements de la chambre :</strong> {{ offre.room_amenities }}</li>
+                <li><strong>Équipements de l'hôtel :</strong> {{ offre.hotel_amenities }}</li>
+            </ul>
+
+            <h3>Informations supplémentaires</h3>
+            <p>{{ offre.additional_info }}</p>
+
+            <button>Voir les disponibilités</button>
+        </div>
+
+        <div class="map">
+            <h2>Carte de l'emplacement</h2>
+            <div id="map" style="width: 100%; height: 400px;"></div>
+            <script>
+                function initMap() {
+                    const location = { lat: {{ offre.latitude }}, lng: {{ offre.longitude }} };
+                    const map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 10,
+                        center: location
+                    });
+                    const marker = new google.maps.Marker({
+                        position: location,
+                        map: map
+                    });
+                }
+            </script>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 CheapyTrips</p>
+    </footer>
+</body>
+</html>
+

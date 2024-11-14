@@ -1,0 +1,41 @@
+<!-- offre_list.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Offres</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'offres_list' %}">Offres</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>Nos Offres de Voyage</h1>
+
+    <div class="offres-list">
+        {% for offre in offres %}
+            <div class="offre-item">
+                <h2>{{ offre.title }}</h2>
+                {% if offre.image %}
+                    <img src="{{ offre.image.url }}" alt="{{ offre.title }}" style="width: 200px; height: auto;">
+                {% endif %}
+                <p>{{ offre.description|truncatewords:20 }}</p>
+                <p><strong>Lieu:</strong> {{ offre.destination_pays }}, {{ offre.destination_ville }}</p>
+                <p><strong>Prix à partir de:</strong> {{ offre.min_price }} €</p>
+                <a href="{% url 'offres_detail' offre.id %}">Voir les détails</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <footer>
+        <p>© 2024 Agence de Voyage</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# .gitignore example
+__pycache__/
+*.pyc
+envi/
+.env
+db.sqlite3
